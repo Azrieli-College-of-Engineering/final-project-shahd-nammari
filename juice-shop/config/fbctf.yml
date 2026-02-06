@@ -345,3 +345,6 @@ ctf:
     leakedApiKeyChallenge:
       name: San Marino
       code: SM
+    raceLoginLockChallenge:
+      name: Israel
+      code: IS

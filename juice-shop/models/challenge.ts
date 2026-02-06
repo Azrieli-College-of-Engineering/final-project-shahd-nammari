@@ -67,6 +67,7 @@ const CHALLENGE_KEYS = [
   'basketManipulateChallenge',
   'misplacedSignatureFileChallenge',
   'timingAttackChallenge',
+  'raceLoginLockChallenge',
   'easterEggLevelTwoChallenge',
   'noSqlCommandChallenge',
   'noSqlOrdersChallenge',

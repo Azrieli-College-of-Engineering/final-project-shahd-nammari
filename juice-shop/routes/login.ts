@@ -14,6 +14,11 @@ import * as models from '../models/index'
 import { type User } from '../data/types'
 import * as utils from '../lib/utils'
 
+const sleep = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms))
+
+// In-memory counter
+const failedLoginAttempts = new Map<string, number>()
+
 // vuln-code-snippet start loginAdminChallenge loginBenderChallenge loginJimChallenge
 export function login () {
   function afterLogin (user: { data: User, bid: number }, res: Response, next: NextFunction) {
@@ -29,10 +34,10 @@ export function login () {
       })
   }
 
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     verifyPreLoginChallenges(req) // vuln-code-snippet hide-line
     models.sequelize.query(`SELECT * FROM Users WHERE email = '${req.body.email || ''}' AND password = '${security.hash(req.body.password || '')}' AND deletedAt IS NULL`, { model: UserModel, plain: true }) // vuln-code-snippet vuln-line loginAdminChallenge loginBenderChallenge loginJimChallenge
-      .then((authenticatedUser) => { // vuln-code-snippet neutral-line loginAdminChallenge loginBenderChallenge loginJimChallenge
+    .then(async (authenticatedUser) => { // vuln-code-snippet neutral-line loginAdminChallenge loginBenderChallenge loginJimChallenge
         const user = utils.queryResultToJson(authenticatedUser)
         if (user.data?.id && user.data.totpSecret !== '') {
           res.status(401).json({
@@ -48,6 +53,24 @@ export function login () {
           // @ts-expect-error FIXME some properties missing in user - vuln-code-snippet hide-line
           afterLogin(user, res, next)
         } else {
+          const email = String(req.body.email || '').toLowerCase()
+
+          // --------- Race Condition window (intentional) ---------
+          const before = failedLoginAttempts.get(email) ?? 0
+          
+          // yield to event loop so parallel logins can interleave
+          await sleep(150)
+          const now = failedLoginAttempts.get(email) ?? 0
+
+          // If someone updated between our read & write -> race happened
+          if (now !== before) {
+            challengeUtils.solve(challenges.raceLoginLockChallenge)
+          }
+
+          // Lost update vulnerability: we write based on style "before"
+          failedLoginAttempts.set(email, before + 1)
+          // ----------------------------------------
+
           res.status(401).send(res.__('Invalid email or password.'))
         }
       }).catch((error: Error) => {

@@ -23,9 +23,9 @@ By sending multiple login requests concurrently, it is possible to bypass the ac
 ## 🎯 Challenge Goal
 Trigger a race condition to bypass the account lockout after too many failed login attempts.
 
-The challenge appears under the "Broken Authentication" category.
-![Challenge in Juice Shop](D:\WebSecurity\final-project-shahd-nammari\juice-shop\screenshots\race-challenge-list.png)
+The challenge appears under the "Broken Authentication" category:
 
+![Challenge in Juice Shop](https://github.com/Azrieli-College-of-Engineering/final-project-shahd-nammari/blob/main/juice-shop/screenshots/race-challenge-list.png)
 ---
 
 ## 🧠 Vulnerability Explanation
@@ -56,9 +56,9 @@ The challenge can be solved by:
 3. Bypassing the intended login lock mechanism
 
 When successful, Juice Shop displays:
-> ✅ *Race Condition Login Lock challenge solved*
+> ✅ *You have successfully solved a challenge: Race Condition Login Lock*
 
-![race-challenge-solved](D:\WebSecurity\final-project-shahd-nammari\juice-shop\screenshots\race-condition-solved.png)
+![race-challenge-solved](https://github.com/Azrieli-College-of-Engineering/final-project-shahd-nammari/blob/main/juice-shop/screenshots/race-condition-solved.png)
 ---
 
 ## 🔐 Mitigation & Fix

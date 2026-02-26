@@ -54,7 +54,8 @@ The challenge can be solved by:
 1. Sending many concurrent login requests with incorrect credentials
 2. Triggering overlapping execution on the server
 3. Bypassing the intended login lock mechanism
-
+4- The attack was performed against a local Juice Shop instance.
+   
 When successful, Juice Shop displays:
 > ✅ *You have successfully solved a challenge: Race Condition Login Lock*
 
@@ -102,6 +103,14 @@ juice-shop/
 - TypeScript
 - OWASP Juice Shop
 - SQLite
+
+---
+
+## 👩‍💻 Author
+*Shahd Nammari*
+
+Web Security Course – Final Project  
+Azrieli College of Engineering
 
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Nt4zUlkt)

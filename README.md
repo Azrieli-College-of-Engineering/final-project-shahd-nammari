@@ -1,5 +1,14 @@
 # Web Security Final Project – OWASP Juice Shop
 
+---
+
+## 👩‍💻 Author
+*Shahd Nammari*
+
+Azrieli College of Engineering
+
+---
+
 ## 📌 Project Overview
 This repository contains the final project for the **Web Security** course.  
 The project is based on **OWASP Juice Shop** and focuses on adding and documenting a **new security challenge** that demonstrates a real-world vulnerability.
